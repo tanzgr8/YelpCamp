@@ -1,0 +1,62 @@
+<%- include("../partials/header") %>
+<div class="container" style="margin-top:20px;">
+	<div class="row">
+		<div class="col-md-3">
+			<p class="lead">Yelpcamp</p>
+			<div class="list-group">
+				<li class="list-group-item active">Info 1</li>
+				<li class="list-group-item ">Info 2</li>
+				<li class="list-group-item ">Info 3</li>
+			</div>
+		</div>
+		<div class="col-md-9">
+			<div class="thumbnail">
+				<img class="img-responsive"src="<%=campground.image%>">
+				<div class="caption">
+				<h4 class="pull-right"><%=campground.price%>Rs/Night</h4>	
+					<h4><a><%=campground.name%></a></h4>
+					<p><%=campground.description%></p>
+					<p>
+						<em>Created By <%=campground.author.username%></em>
+						
+				    </p>
+				<% if(currentUser && campground.author.id.equals(currentUser._id)){ %>
+						<form style="display:inline" class="ex" action="/camp/<%=campground._id %>?_method=DELETE" method="POST">
+						<button class="ui inverted red big button"><i class="trash icon"></i>DELETE</button>
+					</form>
+	
+						<a href="/camp/<%= campground._id%>/edit" class="ui inverted purple big right floated button"><i class="pencil                        alternate icon"></i>EDIT</a>
+					<%}%>
+					
+				</div>
+			</div>
+	
+			<div class="well">
+				<div class="text-right">
+					<a class="btn btn-success" href="/camp/<%=campground._id%>/comments/new"><i class="plus icon"></i>ADD COMMENT</a>	
+				</div>
+				<% campground.comments.forEach(function(comment){%>
+				<div class="row">
+					<div class="col-md-12">
+						<strong><%= comment.author.username%></strong>
+						<span class="pull-right">10 Days Ago</span>
+						    <p>
+	                               <%=comment.text%>	
+                            </p>
+						<% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+						<form style="display:inline" class="ex" action="/camp/<%=campground._id %>/comments/<%=comment._id%>?_method=DELETE" method="POST">
+						<button class="ui inverted red medium button"><i class="trash icon"></i>DELETE</button>
+					</form>
+			<a href="/camp/<%=campground._id %>/comments/<%=comment._id%>/edit" class="ui inverted purple medium right floated button">
+							<i class="pencil alternate icon"></i>EDIT</a>
+						<%}%>
+					</div>
+				</div>
+	          
+<%})%>
+			</div>
+		</div>
+	</div>
+</div>
+
+<%- include("../partials/footer") %>

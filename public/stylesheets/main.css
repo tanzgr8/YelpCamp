@@ -1,0 +1,14 @@
+.thumbnail img{
+	width:100%;
+}
+.thumbnail{
+padding: 0;
+}
+.btn-outline-primary:hover{
+	background-color:#007bff;
+	border-color:#007bff;
+	color :white; 
+}
+#ex{
+	margin-bottom:0px;
+}
